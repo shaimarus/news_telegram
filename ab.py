@@ -10,12 +10,6 @@ from telethon.tl.types import (
     PeerChannel
 )
 
-#logging.basicConfig(filename='/mnt/c/Users/shaim/PYTHON_MAIN/test/tele/1/my_script.log', level=logging.DEBUG,
-#                    format='%(asctime)s - %(levelname)s - %(message)s')
-#start_time = time.time()
-#logging.info('Скрипт начал выполнение')
-
-
 # some functions to parse json date
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, o):
@@ -54,17 +48,17 @@ async def channel2(input_channel):
         user_input_channel='https://t.me/tengrinews'  
     elif input_channel=='nurkz':
         user_input_channel='https://t.me/newsnurkz'  
-    # Setting configuration values
 
 
-    #user_input_channel='https://t.me/orda_kz'
+
+
     if user_input_channel.isdigit():
         entity = PeerChannel(int(user_input_channel))
     else:
         entity = user_input_channel
 
 
-    limit = 11
+    limit = 150
     my_channel = await client.get_entity(entity)
     messages5 = await client.get_messages(my_channel, limit=limit+1)
     max_id = messages5[-1].id
@@ -86,8 +80,7 @@ async def channel2(input_channel):
     else:    
         with open(input_channel+'.json', 'r') as infile:
             all_messages2 = json.load(infile)
-    # with open('channel_messages2.json', 'r') as infile:
-    #     all_messages2 = json.load(infile)
+
 
     while True:
         #print("Current Offset ID is:", offset_id, "; Total Messages:", total_messages)
@@ -98,7 +91,7 @@ async def channel2(input_channel):
             add_offset=0,
             limit=limit,
             max_id=0,
-            min_id=max_id,#int(datetime(2023, 3, 3, 0, 0).timestamp()),
+            min_id=max_id,
             hash=0
         ))
         if not history.messages:
@@ -143,17 +136,8 @@ async def main(phone):
     await channel2('nurkz')
 
     
-
-    
-    
-
 with client:
     client.loop.run_until_complete(main(phone))
-
-print('--------------------------123----------------')
-#end_time = time.time() 
-#execution_time = end_time - start_time
-#logging.info('Скрипт завершил выполнение. Время выполнения: %s сек.' % execution_time)
 
 with open('test.log', 'w') as outfile:
     json.dump(datetime.now().strftime('%d.%m.%Y %H:%M:%S') , outfile, cls=DateTimeEncoder)
