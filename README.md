@@ -8,7 +8,7 @@ api_hash='' <br/>
 phone = '' <br/>
 username='' <br/>
 
-2.Data gathering:
+2.Data gathering: <br/>
 a. you can put ab.py to cron, run it every 10 minutes,it will be block if you want do it often. <br/>
 b. you can run ab3.py through subprocess.Popen(): <br/>
 
